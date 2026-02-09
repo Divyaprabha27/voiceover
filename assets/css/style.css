@@ -189,3 +189,177 @@ footer .list-unstyled li {
 [data-theme="dark"] .text-dark {
     color: #f8f9fa !important;
 }
+
+/* One-by-one line layout for all screen sizes */
+.col-lg-9>.d-flex:first-child {
+    flex-direction: column;
+    align-items: stretch !important;
+    gap: 0.5rem !important;
+    margin-bottom: 1rem !important;
+    padding: 1rem;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    position: relative;
+    z-index: 10;
+}
+
+.col-lg-9>.d-flex:first-child>p {
+    margin-bottom: 0 !important;
+    font-weight: 600 !important;
+    color: var(--text-color) !important;
+    font-size: 1rem !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    text-align: left !important;
+    width: 100% !important;
+}
+
+.col-lg-9>.d-flex:first-child>.d-flex {
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row !important;
+    margin: 0.5rem 0 !important;
+}
+
+.col-lg-9>.d-flex:first-child .form-select {
+    width: auto !important;
+    min-width: 150px;
+    flex: 1;
+    margin-left: 0 !important;
+}
+
+/* Mobile filter sections and card header spacing */
+@media (max-width: 991.98px) {
+    .card .card-header {
+        margin-bottom: 1rem;
+        padding-bottom: 0.75rem;
+    }
+
+    /* Show filter section in mobile as collapsible */
+    .col-lg-3 {
+        display: block !important;
+        width: 100% !important;
+        margin-bottom: 1rem;
+        order: -1;
+        position: relative;
+        z-index: 20;
+        flex: 0 0 auto;
+    }
+
+    .col-lg-3 .card {
+        position: static !important;
+        top: auto !important;
+        z-index: auto !important;
+        width: 100% !important;
+    }
+
+    .card .collapse#filterCollapse {
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        display: none !important;
+        height: 0 !important;
+        visibility: hidden !important;
+        overflow: hidden !important;
+        transition: all 0.3s ease !important;
+    }
+
+    .card .collapse#filterCollapse.show {
+        display: block !important;
+        height: auto !important;
+        visibility: visible !important;
+        overflow: visible !important;
+    }
+
+    .card .collapse#filterCollapse .card-body {
+        padding-bottom: 1.5rem;
+    }
+
+    /* Fix showing results and sort by visibility in mobile */
+    .col-lg-9 {
+        width: 100% !important;
+        order: 0;
+    }
+
+    .col-lg-9>.d-flex:first-child {
+        flex-direction: column;
+        align-items: stretch !important;
+        gap: 0.5rem !important;
+        margin-bottom: 1rem !important;
+        padding: 1rem;
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 0.375rem;
+        position: relative;
+        z-index: 10;
+    }
+
+    .col-lg-9>.d-flex:first-child>p {
+        margin-bottom: 0 !important;
+        font-weight: 600 !important;
+        color: var(--text-color) !important;
+        font-size: 1rem !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        text-align: left !important;
+        width: 100% !important;
+    }
+
+    .col-lg-9>.d-flex:first-child>.d-flex {
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row !important;
+        margin: 0.5rem 0 !important;
+    }
+
+    .col-lg-9>.d-flex:first-child .form-select {
+        width: 0 !important;
+        min-width: 0 !important;
+        flex: 1;
+        margin-left: 0 !important;
+    }
+
+    /* Add spacing between results section and content */
+    .col-lg-9>.d-flex:first-child+.row {
+        margin-top: 2rem !important;
+        position: relative;
+        z-index: 5;
+    }
+
+    /* Additional override for text-muted class in mobile */
+    .col-lg-9 .text-muted {
+        color: var(--text-color) !important;
+        opacity: 1 !important;
+    }
+
+    /* Fix dropdown menu positioning in mobile */
+    .dropdown-menu {
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: 90vw !important;
+        max-width: 400px !important;
+        max-height: 70vh !important;
+        overflow-y: auto !important;
+        z-index: 1050 !important;
+        border: 1px solid var(--border-color) !important;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    }
+
+    /* Mobile dropdown backdrop */
+    .dropdown.show::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1040;
+    }
+}
