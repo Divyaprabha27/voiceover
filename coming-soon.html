@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon - Voiceover Directory</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+
+<body class="d-flex align-items-center justify-content-center min-vh-100 text-center bg-light">
+
+    <div class="container" data-aos="fade-up">
+        <i class="bi bi-rocket-takeoff-fill display-1 text-primary mb-4"></i>
+        <h1 class="fw-bold mb-3">We're Launching Soon!</h1>
+        <p class="lead text-muted mb-5">We are working hard to bring you the best voiceover marketplace.</p>
+
+        <div class="row justify-content-center mb-5" id="countdown" data-aos="zoom-in" data-aos-delay="200">
+            <div class="col-6 col-md-2 mb-3">
+                <div class="card border-0 shadow-sm py-3">
+                    <h2 class="fw-bold" id="days">00</h2>
+                    <small>Days</small>
+                </div>
+            </div>
+            <div class="col-6 col-md-2 mb-3">
+                <div class="card border-0 shadow-sm py-3">
+                    <h2 class="fw-bold" id="hours">00</h2>
+                    <small>Hours</small>
+                </div>
+            </div>
+            <div class="col-6 col-md-2 mb-3">
+                <div class="card border-0 shadow-sm py-3">
+                    <h2 class="fw-bold" id="minutes">00</h2>
+                    <small>Minutes</small>
+                </div>
+            </div>
+            <div class="col-6 col-md-2 mb-3">
+                <div class="card border-0 shadow-sm py-3">
+                    <h2 class="fw-bold" id="seconds">00</h2>
+                    <small>Seconds</small>
+                </div>
+            </div>
+        </div>
+
+        <form class="row g-2 justify-content-center">
+            <div class="col-auto">
+                <input type="email" class="form-control" placeholder="Enter your email">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-3">Notify Me</button>
+            </div>
+        </form>
+
+        <div class="mt-4">
+            <a href="index.html" class="text-muted text-decoration-none small">Back to Home</a>
+        </div>
+    </div>
+
+    <!-- Theme Toggle (Fixed Position) -->
+    <button id="theme-toggle"
+        class="btn btn-primary position-fixed bottom-0 end-0 m-4 rounded-circle shadow theme-toggle-btn"
+        aria-label="Toggle theme">
+        <i class="bi bi-moon-fill"></i>
+    </button>
+
+    <script>
+        // Set the date we're counting down to
+        var countDownDate = new Date("Jan 1, 2027 00:00:00").getTime();
+
+        // Update the count down every 1 second
+        var x = setInterval(function () {
+
+            // Get today's date and time
+            var now = new Date().getTime();
+
+            // Find the distance between now and the count down date
+            var distance = countDownDate - now;
+
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Display the result in the element with id="demo"
+            document.getElementById("days").innerHTML = days;
+            document.getElementById("hours").innerHTML = hours;
+            document.getElementById("minutes").innerHTML = minutes;
+            document.getElementById("seconds").innerHTML = seconds;
+
+            // If the count down is finished, write some text
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("countdown").innerHTML = "EXPIRED";
+            }
+        }, 1000);
+    </script>
+    <script src="assets/js/main.js"></script>
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+</body>
+
+</html>

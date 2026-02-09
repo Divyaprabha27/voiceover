@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Voiceover Directory</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .sidebar {
+            width: 280px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            transition: all 0.3s;
+            background-color: var(--card-bg);
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto;
+        }
+
+        .main-content {
+            margin-left: 280px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+
+        /* Sidebar Nav Pills Styles */
+        .sidebar .nav-link {
+            color: var(--text-color);
+            margin-bottom: 0.25rem;
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+        }
+
+        .sidebar .nav-link.active {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        [data-theme="dark"] .sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        [data-theme="dark"] .sidebar .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                margin-left: -280px;
+            }
+
+            .sidebar.active {
+                margin-left: 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .sidebar-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+            }
+
+            .sidebar-overlay.active {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <div class="sidebar d-flex flex-column flex-shrink-0 p-3" id="sidebar" data-aos="fade-right">
+        <a href="index.html" class="navbar-brand fw-bold text-primary fs-4 mb-3 text-center text-md-start">
+            <i class="bi bi-mic-fill"></i> Voiceover Directory
+        </a>
+        <hr>
+        <div class="d-flex align-items-center mb-3 px-2">
+            <div class="flex-shrink-0">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="user" class="rounded-circle border"
+                    width="40" height="40">
+            </div>
+            <div class="flex-grow-1 ms-2 overflow-hidden">
+                <h6 class="mb-0 text-truncate fw-bold">Sarah Jones</h6>
+                <small class="text-muted">Voice Talent</small>
+            </div>
+        </div>
+        <ul class="nav nav-pills flex-column mb-auto" id="dashboardMenu" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link w-100 text-start active" id="overview-tab" data-bs-toggle="pill"
+                    data-bs-target="#overview" type="button" role="tab" aria-controls="overview" aria-selected="true">
+                    <i class="bi bi-speedometer2 me-2"></i> Dashboard
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link w-100 text-start" id="profile-tab" data-bs-toggle="pill"
+                    data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">
+                    <i class="bi bi-person me-2"></i> My Profile
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link w-100 text-start" id="auditions-tab" data-bs-toggle="pill"
+                    data-bs-target="#auditions" type="button" role="tab" aria-controls="auditions"
+                    aria-selected="false">
+                    <i class="bi bi-briefcase me-2"></i> Auditions <span
+                        class="badge bg-primary rounded-pill float-end">2</span>
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link w-100 text-start" id="messages-tab" data-bs-toggle="pill"
+                    data-bs-target="#messages" type="button" role="tab" aria-controls="messages" aria-selected="false">
+                    <i class="bi bi-chat-left-text me-2"></i> Messages
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link w-100 text-start" id="earnings-tab" data-bs-toggle="pill"
+                    data-bs-target="#earnings" type="button" role="tab" aria-controls="earnings" aria-selected="false">
+                    <i class="bi bi-wallet2 me-2"></i> Earnings
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link w-100 text-start" id="settings-tab" data-bs-toggle="pill"
+                    data-bs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">
+                    <i class="bi bi-gear me-2"></i> Settings
+                </button>
+            </li>
+        </ul>
+        <hr>
+        <div>
+            <a href="index.html" class="nav-link link-body-emphasis text-danger">
+                <i class="bi bi-box-arrow-right me-2"></i> Sign out
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Navbar for Mobile/Tablet -->
+        <nav class="navbar navbar-expand-lg d-lg-none mb-4 bg-transparent">
+            <button class="btn btn-outline-primary" id="sidebarToggle">
+                <i class="bi bi-list"></i> Menu
+            </button>
+            <span class="navbar-brand ms-3 fw-bold">Dashboard</span>
+            <button id="theme-toggle" class="btn btn-link nav-link theme-toggle-btn ms-auto">
+                <i class="bi bi-moon-fill"></i>
+            </button>
+        </nav>
+
+        <div class="d-none d-lg-flex justify-content-end mb-4">
+            <button id="theme-toggle-desktop" class="btn btn-link nav-link theme-toggle-btn">
+                <i class="bi bi-moon-fill"></i>
+            </button>
+        </div>
+
+        <div class="tab-content" id="dashboardTabContent">
+
+            <!-- OVERVIEW TAB -->
+            <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+                <h2 class="fw-bold mb-4" data-aos="fade-down">Overview</h2>
+
+                <!-- Stats Cards -->
+                <div class="row g-4 mb-4">
+                    <div class="col-sm-6 col-xl-3" data-aos="fade-up" data-aos-delay="0">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <h6 class="card-subtitle text-muted">Total Earnings</h6>
+                                    <div class="bg-primary-subtle text-primary rounded p-2 lh-1">
+                                        <i class="bi bi-currency-dollar"></i>
+                                    </div>
+                                </div>
+                                <h3 class="card-title mb-0">$1,500.00</h3>
+                                <small class="text-success"><i class="bi bi-arrow-up"></i> 12% vs last month</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-3" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <h6 class="card-subtitle text-muted">Active Auditions</h6>
+                                    <div class="bg-success-subtle text-success rounded p-2 lh-1">
+                                        <i class="bi bi-mic"></i>
+                                    </div>
+                                </div>
+                                <h3 class="card-title mb-0">5</h3>
+                                <small class="text-muted">2 submitted today</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-3" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <h6 class="card-subtitle text-muted">Profile Views</h6>
+                                    <div class="bg-warning-subtle text-warning rounded p-2 lh-1">
+                                        <i class="bi bi-eye"></i>
+                                    </div>
+                                </div>
+                                <h3 class="card-title mb-0">240</h3>
+                                <small class="text-success"><i class="bi bi-arrow-up"></i> 5% vs last week</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-3" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <h6 class="card-subtitle text-muted">Rating</h6>
+                                    <div class="bg-info-subtle text-info rounded p-2 lh-1">
+                                        <i class="bi bi-star"></i>
+                                    </div>
+                                </div>
+                                <h3 class="card-title mb-0">4.9</h3>
+                                <small class="text-muted">Based on 120 reviews</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity Table -->
+                <div class="card border-0 shadow-sm" data-aos="fade-up" data-aos-delay="400">
+                    <div
+                        class="card-header bg-transparent border-0 d-flex justify-content-between align-items-center py-3">
+                        <h5 class="fw-bold mb-0">Recent Activity</h5>
+                        <button class="btn btn-sm btn-outline-primary">View All</button>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th scope="col" class="ps-4">Project</th>
+                                        <th scope="col">Client</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Amount</th>
+                                        <th scope="col" class="text-end pe-4">Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="ps-4 fw-bold">TV Commercial - Sport</td>
+                                        <td data-aos="fade-right">Nike Ad Agency</td>
+                                        <td><span class="badge bg-warning text-dark">Pending</span></td>
+                                        <td>$500</td>
+                                        <td class="text-end pe-4">Feb 10, 2026</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="ps-4 fw-bold">Meditation App V/O</td>
+                                        <td>Calmify Inc.</td>
+                                        <td><span class="badge bg-success">Completed</span></td>
+                                        <td>$300</td>
+                                        <td class="text-end pe-4">Feb 08, 2026</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="ps-4 fw-bold">E-Learning Module 4</td>
+                                        <td>EduTech Solutions</td>
+                                        <td><span class="badge bg-info text-light">In Progress</span></td>
+                                        <td>$1,200</td>
+                                        <td class="text-end pe-4">Feb 05, 2026</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="ps-4 fw-bold">Game Character: "Zorg"</td>
+                                        <td>Indie Pixel</td>
+                                        <td><span class="badge bg-danger">Rejected</span></td>
+                                        <td>-</td>
+                                        <td class="text-end pe-4">Feb 02, 2026</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROFILE TAB -->
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <h2 class="fw-bold mb-4">My Profile</h2>
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-4 p-md-5">
+                        <form>
+                            <div class="row mb-4 align-items-center">
+                                <div class="col-auto">
+                                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile"
+                                        class="rounded-circle" width="80" height="80">
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="btn btn-outline-primary btn-sm">Change Photo</button>
+                                    <button type="button" class="btn btn-outline-danger btn-sm ms-2">Remove</button>
+                                </div>
+                            </div>
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">First Name</label>
+                                    <input type="text" class="form-control" value="Sarah">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" value="Jones">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Bio</label>
+                                <textarea class="form-control"
+                                    rows="4">Professional voice artist with over 5 years of experience in commercials and narration.</textarea>
+                            </div>
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" value="sarah.jones@example.com">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Phone</label>
+                                    <input type="tel" class="form-control" value="+1 555 0123">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Demo Reel URL</label>
+                                <input type="url" class="form-control" value="https://soundcloud.com/sarah-jones-demo">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AUDITIONS TAB -->
+            <div class="tab-pane fade" id="auditions" role="tabpanel" aria-labelledby="auditions-tab">
+                <h2 class="fw-bold mb-4">My Auditions</h2>
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-transparent border-0 py-3">
+                        <ul class="nav nav-tabs card-header-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#">Active</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-muted" href="#">Archived</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th scope="col" class="ps-4">Role</th>
+                                        <th scope="col">Project</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col" class="text-end pe-4">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="ps-4 fw-bold">Lead Narrator</td>
+                                        <td>Nature Documentary</td>
+                                        <td>Feb 12, 2026</td>
+                                        <td><span class="badge bg-primary">Submitted</span></td>
+                                        <td class="text-end pe-4"><button
+                                                class="btn btn-sm btn-outline-secondary">View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="ps-4 fw-bold">Character Voice</td>
+                                        <td>Fantasy RPG</td>
+                                        <td>Feb 10, 2026</td>
+                                        <td><span class="badge bg-info text-light">Viewed</span></td>
+                                        <td class="text-end pe-4"><button
+                                                class="btn btn-sm btn-outline-secondary">View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="ps-4 fw-bold">Commercial Voice</td>
+                                        <td>Tech Startup Ad</td>
+                                        <td>Feb 08, 2026</td>
+                                        <td><span class="badge bg-secondary">Shortlisted</span></td>
+                                        <td class="text-end pe-4"><button
+                                                class="btn btn-sm btn-outline-secondary">View</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MESSAGES TAB -->
+            <div class="tab-pane fade" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+                <h2 class="fw-bold mb-4">Messages</h2>
+                <div class="card border-0 shadow-sm">
+                    <div class="list-group list-group-flush">
+                        <a href="#" class="list-group-item list-group-item-action p-3">
+                            <div class="d-flex align-items-center">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User"
+                                    class="rounded-circle me-3" width="50" height="50">
+                                <div class="flex-grow-1">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-1 fw-bold">Mark Wilson</h6>
+                                        <small class="text-muted">10:30 AM</small>
+                                    </div>
+                                    <p class="mb-1 text-truncate" style="max-width: 400px;">Hey Sarah, great job on the
+                                        demo! We'd like to discuss the project further.</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action p-3">
+                            <div class="d-flex align-items-center">
+                                <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="User"
+                                    class="rounded-circle me-3" width="50" height="50">
+                                <div class="flex-grow-1">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-1 fw-bold">Emma Davis</h6>
+                                        <small class="text-muted">Yesterday</small>
+                                    </div>
+                                    <p class="mb-1 text-truncate" style="max-width: 400px;">Is the script formatting
+                                        clear? Let me know if you have questions.</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action p-3">
+                            <div class="d-flex align-items-center">
+                                <img src="https://randomuser.me/api/portraits/men/12.jpg" alt="User"
+                                    class="rounded-circle me-3" width="50" height="50">
+                                <div class="flex-grow-1">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-1 fw-bold">Studio X</h6>
+                                        <small class="text-muted">Feb 05</small>
+                                    </div>
+                                    <p class="mb-1 text-truncate" style="max-width: 400px;">Project 'Galaxy' has been
+                                        marked as completed. Thanks!</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EARNINGS TAB -->
+            <div class="tab-pane fade" id="earnings" role="tabpanel" aria-labelledby="earnings-tab">
+                <h2 class="fw-bold mb-4">Earnings</h2>
+                <div class="row g-4 mb-4">
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm bg-primary text-white h-100">
+                            <div class="card-body p-4">
+                                <h6 class="card-title opacity-75">Available for Withdrawal</h6>
+                                <h2 class="display-6 fw-bold mb-0">$850.00</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body p-4">
+                                <h6 class="card-title text-muted">Pending Clearance</h6>
+                                <h2 class="display-6 fw-bold mb-0 text-dark">$650.00</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-transparent border-0 py-3">
+                        <h5 class="fw-bold mb-0">Transaction History</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table align-middle mb-0">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th class="ps-4">Date</th>
+                                        <th>Description</th>
+                                        <th>Status</th>
+                                        <th class="text-end pe-4">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="ps-4">Feb 10, 2026</td>
+                                        <td>Payment for "Meditation App"</td>
+                                        <td><span class="badge bg-success">Cleared</span></td>
+                                        <td class="text-end pe-4 text-success">+$300.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="ps-4">Feb 05, 2026</td>
+                                        <td>Withdrawal to PayPal</td>
+                                        <td><span class="badge bg-secondary">Processed</span></td>
+                                        <td class="text-end pe-4 text-muted">-$1,200.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="ps-4">Jan 28, 2026</td>
+                                        <td>Payment for "E-Learning"</td>
+                                        <td><span class="badge bg-success">Cleared</span></td>
+                                        <td class="text-end pe-4 text-success">+$1,200.00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SETTINGS TAB -->
+            <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+                <h2 class="fw-bold mb-4">Settings</h2>
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-transparent border-0 py-3">
+                        <h5 class="fw-bold mb-0 pb-0">Notifications</h5>
+                    </div>
+                    <div class="card-body pt-0">
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="emailNotif" checked>
+                            <label class="form-check-label" for="emailNotif">Email Notifications</label>
+                        </div>
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="smsNotif">
+                            <label class="form-check-label" for="smsNotif">SMS Notifications</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="marketingNotif" checked>
+                            <label class="form-check-label" for="marketingNotif">Marketing Emails</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-transparent border-0 py-3">
+                        <h5 class="fw-bold mb-0">Security</h5>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <label class="form-label">Current Password</label>
+                                <input type="password" class="form-control">
+                            </div>
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">New Password</label>
+                                    <input type="password" class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Confirm New Password</label>
+                                    <input type="password" class="form-control">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Password</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="assets/js/main.js"></script>
+    <!-- Note: Data-aos attributes have been applied. The main.js file initializes AOS. -->
+    <script>
+        // Additional simple script to handle theme toggle for both buttons if needed specifically for dashboard
+        // Assuming main.js handles the logic, but we added a second ID 'theme-toggle-desktop' which might need binding if main.js uses unique ID
+        const themeToggleDesktop = document.getElementById('theme-toggle-desktop');
+        if (themeToggleDesktop) {
+            themeToggleDesktop.addEventListener('click', () => {
+                document.getElementById('theme-toggle').click(); // Delegate to main toggle logic
+            });
+        }
+    </script>
+</body>
+
+</html>
