@@ -62,7 +62,8 @@
 
         @media (max-width: 992px) {
             .sidebar {
-                margin-left: -280px;
+                margin-left: -100%;
+                width: 100%;
             }
 
             .sidebar.active {
@@ -316,9 +317,9 @@
                                     <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile"
                                         class="rounded-circle" width="80" height="80">
                                 </div>
-                                <div class="col">
+                                <div class="col d-flex flex-wrap gap-2">
                                     <button type="button" class="btn btn-outline-primary btn-sm">Change Photo</button>
-                                    <button type="button" class="btn btn-outline-danger btn-sm ms-2">Remove</button>
+                                    <button type="button" class="btn btn-outline-danger btn-sm">Remove</button>
                                 </div>
                             </div>
                             <div class="row g-3 mb-3">
@@ -423,12 +424,13 @@
                             <div class="d-flex align-items-center">
                                 <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User"
                                     class="rounded-circle me-3" width="50" height="50">
-                                <div class="flex-grow-1">
+                                <div class="flex-grow-1" style="min-width: 0;">
                                     <div class="d-flex w-100 justify-content-between">
                                         <h6 class="mb-1 fw-bold">Mark Wilson</h6>
                                         <small class="text-muted">10:30 AM</small>
                                     </div>
-                                    <p class="mb-1 text-truncate" style="max-width: 400px;">Hey Sarah, great job on the
+                                    <p class="mb-1 text-truncate" style="max-width: 400px; width: 100%;">Hey Sarah,
+                                        great job on the
                                         demo! We'd like to discuss the project further.</p>
                                 </div>
                             </div>
@@ -437,12 +439,13 @@
                             <div class="d-flex align-items-center">
                                 <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="User"
                                     class="rounded-circle me-3" width="50" height="50">
-                                <div class="flex-grow-1">
+                                <div class="flex-grow-1" style="min-width: 0;">
                                     <div class="d-flex w-100 justify-content-between">
                                         <h6 class="mb-1 fw-bold">Emma Davis</h6>
                                         <small class="text-muted">Yesterday</small>
                                     </div>
-                                    <p class="mb-1 text-truncate" style="max-width: 400px;">Is the script formatting
+                                    <p class="mb-1 text-truncate" style="max-width: 400px; width: 100%;">Is the script
+                                        formatting
                                         clear? Let me know if you have questions.</p>
                                 </div>
                             </div>
@@ -451,12 +454,13 @@
                             <div class="d-flex align-items-center">
                                 <img src="https://randomuser.me/api/portraits/men/12.jpg" alt="User"
                                     class="rounded-circle me-3" width="50" height="50">
-                                <div class="flex-grow-1">
+                                <div class="flex-grow-1" style="min-width: 0;">
                                     <div class="d-flex w-100 justify-content-between">
                                         <h6 class="mb-1 fw-bold">Studio X</h6>
                                         <small class="text-muted">Feb 05</small>
                                     </div>
-                                    <p class="mb-1 text-truncate" style="max-width: 400px;">Project 'Galaxy' has been
+                                    <p class="mb-1 text-truncate" style="max-width: 400px; width: 100%;">Project
+                                        'Galaxy' has been
                                         marked as completed. Thanks!</p>
                                 </div>
                             </div>
