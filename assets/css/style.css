@@ -198,6 +198,11 @@ footer .list-unstyled li {
     .navbar-brand {
         font-size: 1.2rem;
     }
+
+    /* Fix: Reduce margin for the icons container to prevent wrapping at 1024px */
+    .navbar .d-flex.align-items-center.order-lg-3.ms-lg-3 {
+        margin-left: 0.5rem !important;
+    }
 }
 
 .navbar-nav .nav-link {
