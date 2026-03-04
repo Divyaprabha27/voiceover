@@ -136,69 +136,97 @@
         </div>
     </section>
 
-    <!-- Section 3: Featured Talent (Horizontal Scroll) -->
+    <!-- Section 3: Featured Talent (Arrow Slider) -->
     <section class="container mb-5">
         <div class="text-center mb-4">
             <h2 class="fw-bold">Top Rated Talent</h2>
             <a href="browse-talent.html" class="text-decoration-none">View All <i class="bi bi-arrow-right"></i></a>
         </div>
-        <div class="row flex-nowrap overflow-auto pb-4" style="scrollbar-width: thin;" data-aos="fade-up">
-            <!-- Card 1 -->
-            <div class="col-10 col-md-4 col-lg-3">
-                <div class="card h-100 border-0 shadow-sm">
-                    <img src="https://randomuser.me/api/portraits/women/68.jpg" class="card-img-top" alt="Artist"
-                        style="height: 250px; object-fit: cover;">
-                    <div class="card-body">
-                        <h5 class="card-title">Elena R.</h5>
-                        <p class="card-text small text-muted">Spanish, Energetic</p>
+        <div class="position-relative" data-aos="fade-up">
+            <!-- Left Arrow -->
+            <button id="talent-prev"
+                class="btn btn-light border shadow-sm position-absolute top-50 start-0 translate-middle-y z-1 rounded-circle d-flex align-items-center justify-content-center"
+                style="width:42px;height:42px;left:-18px;" aria-label="Previous">
+                <i class="bi bi-chevron-left fw-bold"></i>
+            </button>
+            <!-- Scrollable Track -->
+            <div id="talent-track" class="d-flex justify-content-center gap-3 overflow-hidden py-2 px-1"
+                style="scroll-behavior:smooth;">
+                <!-- Card 1 -->
+                <div class="flex-shrink-0" style="width:270px;">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" class="card-img-top" alt="Artist"
+                            style="height:250px;object-fit:cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">Elena R.</h5>
+                            <p class="card-text small text-muted">Spanish, Energetic</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="flex-shrink-0" style="width:270px;">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" class="card-img-top" alt="Artist"
+                            style="height:250px;object-fit:cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">David L.</h5>
+                            <p class="card-text small text-muted">British, Corporate</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="flex-shrink-0" style="width:270px;">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" class="card-img-top" alt="Artist"
+                            style="height:250px;object-fit:cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">Sarah J.</h5>
+                            <p class="card-text small text-muted">American, Friendly</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 4 -->
+                <div class="flex-shrink-0" style="width:270px;">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <img src="https://randomuser.me/api/portraits/men/86.jpg" class="card-img-top" alt="Artist"
+                            style="height:250px;object-fit:cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">Michael C.</h5>
+                            <p class="card-text small text-muted">Chinese, Narrator</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 5 -->
+                <div class="flex-shrink-0" style="width:270px;">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <img src="https://randomuser.me/api/portraits/women/90.jpg" class="card-img-top" alt="Artist"
+                            style="height:250px;object-fit:cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">Emma W.</h5>
+                            <p class="card-text small text-muted">Australian, Soft</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- Card 2 -->
-            <div class="col-10 col-md-4 col-lg-3">
-                <div class="card h-100 border-0 shadow-sm">
-                    <img src="https://randomuser.me/api/portraits/men/32.jpg" class="card-img-top" alt="Artist"
-                        style="height: 250px; object-fit: cover;">
-                    <div class="card-body">
-                        <h5 class="card-title">David L.</h5>
-                        <p class="card-text small text-muted">British, Corporate</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Card 3 -->
-            <div class="col-10 col-md-4 col-lg-3">
-                <div class="card h-100 border-0 shadow-sm">
-                    <img src="https://randomuser.me/api/portraits/women/44.jpg" class="card-img-top" alt="Artist"
-                        style="height: 250px; object-fit: cover;">
-                    <div class="card-body">
-                        <h5 class="card-title">Sarah J.</h5>
-                        <p class="card-text small text-muted">American, Friendly</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Card 4 -->
-            <div class="col-10 col-md-4 col-lg-3">
-                <div class="card h-100 border-0 shadow-sm">
-                    <img src="https://randomuser.me/api/portraits/men/86.jpg" class="card-img-top" alt="Artist"
-                        style="height: 250px; object-fit: cover;">
-                    <div class="card-body">
-                        <h5 class="card-title">Michael C.</h5>
-                        <p class="card-text small text-muted">Chinese, Narrator</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Card 5 -->
-            <div class="col-10 col-md-4 col-lg-3">
-                <div class="card h-100 border-0 shadow-sm">
-                    <img src="https://randomuser.me/api/portraits/women/90.jpg" class="card-img-top" alt="Artist"
-                        style="height: 250px; object-fit: cover;">
-                    <div class="card-body">
-                        <h5 class="card-title">Emma W.</h5>
-                        <p class="card-text small text-muted">Australian, Soft</p>
-                    </div>
-                </div>
-            </div>
+            <!-- Right Arrow -->
+            <button id="talent-next"
+                class="btn btn-light border shadow-sm position-absolute top-50 end-0 translate-middle-y z-1 rounded-circle d-flex align-items-center justify-content-center"
+                style="width:42px;height:42px;right:-18px;" aria-label="Next">
+                <i class="bi bi-chevron-right fw-bold"></i>
+            </button>
         </div>
+        <script>
+            (function () {
+                var track = document.getElementById('talent-track');
+                var scrollAmount = 290;
+                document.getElementById('talent-prev').addEventListener('click', function () {
+                    track.scrollLeft -= scrollAmount;
+                });
+                document.getElementById('talent-next').addEventListener('click', function () {
+                    track.scrollLeft += scrollAmount;
+                });
+            })();
+        </script>
     </section>
 
     <!-- Section 4: Why Choose Us (Grid) -->
